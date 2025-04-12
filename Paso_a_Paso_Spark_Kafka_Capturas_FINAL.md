@@ -1,4 +1,4 @@
-# 🚀 Paso a Paso Definitivo – Spark Streaming + Kafka + Hadoop
+# 🚀 Implementacion aplicacion Spark Streaming + Kafka + Hadoop
 
 Este instructivo describe detalladamente la implementación del procesamiento de datos en tiempo real con Apache Spark, Kafka, y Hadoop, utilizando como ejemplo el conjunto de datos de capturas de la Policía Nacional de Colombia.
 
@@ -16,8 +16,8 @@ Este instructivo describe detalladamente la implementación del procesamiento de
    ```bash
    start-all.sh
    ```
-4. Verifica en navegador: [http://192.168.1.13:9870](http://192.168.1.13:9870)
-
+4. Verifica en navegador: [http://192.168.1.4:9870](http://192.168.1.4:9870) 
+### http://your-server-ip:9870 
 ---
 
 ## 2. 📂 Crear carpeta en HDFS y cargar dataset
@@ -26,6 +26,7 @@ Este instructivo describe detalladamente la implementación del procesamiento de
    ```bash
    hdfs dfs -mkdir /Tarea3
    ```
+   Si ya teniamos la carpeta creada porque habiamos implementado el 1. Instructivo Análisis de Datos en Tiempo Real con Spark Streaming y Kafka_ nos va a salir un mensaje diciendo que la carpeta ya existe y podemos continuar
 2. Descargar dataset:
    ```bash
    wget https://www.datos.gov.co/api/views/cukt-wz9m/rows.csv -O capturas_nacionales.csv
@@ -47,23 +48,30 @@ Este instructivo describe detalladamente la implementación del procesamiento de
    ```
 
 ---
+## 4. 🛠️ Iniciar servicios de Spark
 
-## 4. 🛠️ Iniciar servicios de Kafka
+### Terminal 1 – Spark
+```bash
+pyspark
+```
 
-### Terminal 1 – ZooKeeper
+
+## 5. 🛠️ Iniciar servicios de Kafka
+
+### Terminal 2 – ZooKeeper
 ```bash
 sudo rm -rf /tmp/zookeeper
 sudo /opt/kafka/bin/zookeeper-server-start.sh /opt/kafka/config/zookeeper.properties
 ```
 
-### Terminal 2 – Kafka Broker
+### Terminal 3 – Kafka Broker
 ```bash
 sudo /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties
 ```
 
 ---
 
-## 5. 📊 Análisis exploratorio (EDA) con Spark
+## 6. 📊 Análisis exploratorio (EDA) con Spark
 
 ### Terminal 3 – Crear y ejecutar script
 ```bash
@@ -90,7 +98,7 @@ python3 capturas_eda.py
 
 ---
 
-## 6. 🔄 Spark Structured Streaming Consumer
+## 7. 🔄 Spark Structured Streaming Consumer
 
 ### Terminal 4 – Crear archivo
 ```bash
@@ -142,7 +150,7 @@ spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.3 captura
 
 ---
 
-## 7. 📤 Kafka Producer
+## 8. 📤 Kafka Producer
 
 ### Terminal 5 – Crear archivo
 ```bash
@@ -173,7 +181,7 @@ python3 kafka_producer_capturas.py
 
 ---
 
-## 8. 🔁 Reiniciar todo el entorno y verificar funcionamiento
+## 9. 🔁 Reiniciar todo el entorno y verificar funcionamiento
 
 ### Apagar entorno
 
@@ -187,16 +195,17 @@ python3 kafka_producer_capturas.py
 
 | Terminal | Acción                                                                 |
 |----------|------------------------------------------------------------------------|
+| 1        | Iniciar Spark                                                          |
 | 1        | Iniciar ZooKeeper                                                      |
 | 2        | Iniciar Kafka                                                          |
-| 3        | Ejecutar script `capturas_streaming.py` (consumer)                     |
-| 4        | Ejecutar script `kafka_producer_capturas.py` (producer)                |
-| 5        | Opcional: monitorear Spark UI o lanzar nuevamente el EDA              |
+| 3        | Ejecutar script `kafka_producer_capturas.py` (producer)                |
+| 4        | Ejecutar script `capturas_streaming.py` (consumer)                     |
 
+### NOTA: es importante primero ejecutar el script de productor y luego el del consumidor
 ---
 
-## 9. 📈 Visualización y monitoreo
+## 10. 📈 Visualización y monitoreo
 
 - Verifica los resultados en consola en cada terminal.
-- Ingresa a `http://<IP_VM>:4040/streaming/` para ver los micro-batches (si aparece).
+- Ingresa a `http://<IP_VM>:4040/streaming/` para ver los micro-batches (si aparece). Ejemplo Para este caso http://192.168.1.4:4040
 - Verifica los registros por municipio, género, documento y grupo etario en tiempo real.
