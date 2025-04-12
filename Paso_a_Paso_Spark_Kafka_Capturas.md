@@ -1,5 +1,5 @@
 
-# Paso a Paso Definitivo - Procesamiento de Datos con Spark Streaming y Kafka
+# Paso a Paso - Procesamiento de Datos con Spark Streaming y Kafka
 
 Este instructivo describe detalladamente la implementación del procesamiento de datos en tiempo real con Apache Spark, Kafka, y Hadoop, utilizando como ejemplo el conjunto de datos de capturas de la Policía Nacional de Colombia.
 
@@ -171,6 +171,7 @@ with open('capturas_nacionales.csv', newline='', encoding='utf-8') as csvfile:
 ```bash
 python3 kafka_producer_capturas.py
 ```
+### NOTA: es importante primero ejecutar el script de productor y luego el del consumidor
 
 ## 8. Reiniciar y ejecutar el sistema completo
 
@@ -182,4 +183,4 @@ python3 kafka_producer_capturas.py
 ## 9. Visualización y monitoreo
 
 - Verifica la consola del consumidor para ver estadísticas.
-- Accede a `http://<IP_VM>:4040/streaming/` para monitorear los micro-batches.
+- Accede a `http://<IP_VM>:4040/streaming/` para monitorear los micro-batches. ejemplo
