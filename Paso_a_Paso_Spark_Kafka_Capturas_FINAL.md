@@ -191,7 +191,7 @@ python3 kafka_producer_capturas.py
 ### Encender y ejecutar desde cero
 
 1. Enciende la máquina virtual.
-2. Abre 5 terminales y haz lo siguiente:
+2. Abre 5 terminales de Putty y haz lo siguiente, de manera individual en cada ventana te logueas con el usuario Vboxuser y la contraseña bigdata, en el siguiente orden:
 
 | Terminal | Acción                                                                 |
 |----------|------------------------------------------------------------------------|
